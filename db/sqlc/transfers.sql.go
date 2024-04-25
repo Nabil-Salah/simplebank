@@ -7,8 +7,6 @@ package db
 
 import (
 	"context"
-
-	"github.com/jackc/pgx/v5/pgtype"
 )
 
 const createTransfer = `-- name: CreateTransfer :one
@@ -22,13 +20,13 @@ INSERT INTO transfers (
 `
 
 type CreateTransferParams struct {
-	FromAccountID pgtype.Int8 `json:"from_account_id"`
-	ToAccountID   pgtype.Int8 `json:"to_account_id"`
-	Amount        int64       `json:"amount"`
+	FromAccountID int64 `json:"from_account_id"`
+	ToAccountID   int64 `json:"to_account_id"`
+	Amount        int64 `json:"amount"`
 }
 
 func (q *Queries) CreateTransfer(ctx context.Context, arg CreateTransferParams) (Transfer, error) {
-	row := q.db.QueryRow(ctx, createTransfer, arg.FromAccountID, arg.ToAccountID, arg.Amount)
+	row := q.db.QueryRowContext(ctx, createTransfer, arg.FromAccountID, arg.ToAccountID, arg.Amount)
 	var i Transfer
 	err := row.Scan(
 		&i.ID,
@@ -46,7 +44,7 @@ WHERE id = $1 LIMIT 1
 `
 
 func (q *Queries) GetTransfer(ctx context.Context, id int64) (Transfer, error) {
-	row := q.db.QueryRow(ctx, getTransfer, id)
+	row := q.db.QueryRowContext(ctx, getTransfer, id)
 	var i Transfer
 	err := row.Scan(
 		&i.ID,
@@ -69,14 +67,14 @@ OFFSET $4
 `
 
 type ListTransfersParams struct {
-	FromAccountID pgtype.Int8 `json:"from_account_id"`
-	ToAccountID   pgtype.Int8 `json:"to_account_id"`
-	Limit         int32       `json:"limit"`
-	Offset        int32       `json:"offset"`
+	FromAccountID int64 `json:"from_account_id"`
+	ToAccountID   int64 `json:"to_account_id"`
+	Limit         int32 `json:"limit"`
+	Offset        int32 `json:"offset"`
 }
 
 func (q *Queries) ListTransfers(ctx context.Context, arg ListTransfersParams) ([]Transfer, error) {
-	rows, err := q.db.Query(ctx, listTransfers,
+	rows, err := q.db.QueryContext(ctx, listTransfers,
 		arg.FromAccountID,
 		arg.ToAccountID,
 		arg.Limit,

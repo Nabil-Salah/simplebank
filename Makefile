@@ -12,4 +12,6 @@ migratedown:
 	migrate -path db/migrations -database "postgresql://root:secret@localhost:5432/simple_bank?sslmode=disable" -verbose down
 sqlc:
 	sqlc generate
-.start: postgres createdb dropdb migrateup migratedown
+test:
+	go test -v -cover ./...
+.start: postgres createdb dropdb migrateup migratedown test
