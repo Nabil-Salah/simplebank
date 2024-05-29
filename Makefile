@@ -19,3 +19,6 @@ server:
 mock:
 	mockgen -package mockdb -destination db/mock/store.go simplebank/db/sqlc Store
 .start: postgres createdb dropdb migrateup migratedown test server mock
+
+
+

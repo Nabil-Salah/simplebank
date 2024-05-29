@@ -7,6 +7,13 @@
 [![GitHub Release](https://img.shields.io/github/release/golang-migrate/migrate.svg)](https://github.com/golang-migrate/migrate/releases)
 [![Go Report Card](https://goreportcard.com/badge/github.com/golang-migrate/migrate/v4)](https://goreportcard.com/report/github.com/golang-migrate/migrate/v4)
 
+This Project i'm Trying to make bank system.
+
+Applying what i'm currently learning in go web development course
+
+Users have accounts and make transactions with rollbacks if any failure happened.
+# docker
+Insure that you have docker installed on your machine [Guidence](https://docs.docker.com/)
 # migrate
 
 __Database migrations written in Go. Use as [CLI](#cli-usage) or import as [library](#use-in-your-go-project).__
@@ -18,6 +25,11 @@ __Database migrations written in Go. Use as [CLI](#cli-usage) or import as [libr
 * Database drivers don't assume things or try to correct user input. When in doubt, fail.
 
 Forked from [mattes/migrate](https://github.com/mattes/migrate)
+
+You need to download on your device
+```bash
+$ brew install golang-migrate
+```
 
 ## Databases
 
